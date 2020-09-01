@@ -31,7 +31,7 @@ public class Main {
 
             // Input
             boolean inputTry = false;
-            char input = ' ';
+            String input = "";
             do {
                 System.out.print("chose a charakter: ");
                 input = getSign();
@@ -40,9 +40,9 @@ public class Main {
                     inputTry = true;
                 } else {
                     if (record.isEmpty()) {
-                        record += String.valueOf(input);
+                        record += input;
                     } else {
-                        record += ", " + String.valueOf(input);
+                        record += ", " + input;
                     }
                     inputTry = false;
                 }
@@ -62,7 +62,6 @@ public class Main {
             if (!hiddenWord.contains("*")) {
                 gameover = true;
             }
-
         } while (!gameover);
 
         if (state != 9) {
@@ -75,12 +74,12 @@ public class Main {
         }
     }
 
-    public static String changeHiddenWord(String word, String hiddenWord, char sign) {
-        if (!hiddenWord.isEmpty() && !word.isEmpty() && word.length() == hiddenWord.length()) {
+    public static String changeHiddenWord(String word, String hiddenWord, String sign) {
+        if (!hiddenWord.isEmpty() && !word.isEmpty() && word.length() == hiddenWord.length() && !sign.isEmpty()) {
             String help = "";
             for (int i = 0; i < word.length(); i++) {
-                if (word.toUpperCase().charAt(i) == sign && hiddenWord.charAt(i) == '*') {
-                    help += String.valueOf(sign);
+                if (word.toUpperCase().charAt(i) == sign.charAt(0) && hiddenWord.charAt(i) == '*') {
+                    help += sign;
                 } else {
                     help += hiddenWord.charAt(i);
                 }
@@ -90,7 +89,7 @@ public class Main {
         return hiddenWord;
     }
 
-    public static char getSign() {
+    public static String getSign() {
         Scanner s = new Scanner(System.in);
         String input = s.nextLine();
         input = input.toUpperCase();
@@ -98,22 +97,18 @@ public class Main {
         if (!input.isEmpty()) {
             for (int i = 0; i < input.length(); i++) {
                 if (input.charAt(i) >= 'A' && input.charAt(i) <= 'Z') {
-                    return input.charAt(i);
-                }
-                else if (input.charAt(i) >= 'a' && input.charAt(i) <= 'z') {
-                    return input.charAt(i);
+                    return String.valueOf(input.charAt(i));
+                } else if (input.charAt(i) >= 'a' && input.charAt(i) <= 'z') {
+                    return String.valueOf(input.charAt(i));
                 }
             }
         }
-        return ' ';
+        return String.valueOf(' ');
     }
 
-    public static boolean hangmanCheck(String word, char sign) {
-
-        for (int i = 0; i < word.length(); i++) {
-            if (word.toUpperCase().charAt(i) == sign) {
-                return true;
-            }
+    public static boolean hangmanCheck(String word, String sign) {
+        if (word.toUpperCase().contains(sign)) {
+            return true;
         }
         return false;
     }
@@ -140,79 +135,87 @@ public class Main {
 
             case 1 -> System.out.println("___|___");
 
-            case 2 -> System.out.println("   |\n"
-                    + "   |\n"
-                    + "   |\n"
-                    + "___|___");
+            case 2 -> System.out.println("""
+                       |
+                       |
+                       |
+                    ___|___""");
 
-            case 3 -> System.out.println("   |\n"
-                    + "   |\n"
-                    + "   |\n"
-                    + "   |\n"
-                    + "   |\n"
-                    + "   |\n"
-                    + "___|___");
+            case 3 -> System.out.println("""
+                       |
+                       |                   
+                       |
+                       |
+                       |
+                    ___|___""");
 
-            case 4 -> System.out.println("   _______\n"
-                    + "   |/\n"
-                    + "   |\n"
-                    + "   |\n"
-                    + "   |\n"
-                    + "   |\n"
-                    + "   |\n"
-                    + "   |\n"
-                    + "___|___");
+            case 4 -> System.out.println("""
+                       _______
+                       |/     
+                       |     
+                       |
+                       |
+                       |
+                       |
+                       |
+                    ___|___""");
 
-            case 5 -> System.out.println("   _______\n"
-                    + "   |/     |\n"
-                    + "   |\n"
-                    + "   |\n"
-                    + "   |\n"
-                    + "   |\n"
-                    + "   |\n"
-                    + "   |\n"
-                    + "___|___");
+            case 5 -> System.out.println("""
+                       _______
+                       |/     |
+                       |     
+                       |
+                       |
+                       |
+                       |
+                       |
+                    ___|___""");
 
-            case 6 -> System.out.println("   _______\n"
-                    + "   |/     |\n"
-                    + "   |     (_)\n"
-                    + "   |\n"
-                    + "   |\n"
-                    + "   |\n"
-                    + "   |\n"
-                    + "   |\n"
-                    + "___|___");
+            case 6 -> System.out.println("""
+                       _______
+                       |/     |
+                       |     (_)
+                       |
+                       |
+                       |
+                       |
+                       |
+                    ___|___""");
 
-            case 7 -> System.out.println("   _______\n"
-                    + "   |/     |\n"
-                    + "   |     (_)\n"
-                    + "   |     \\|/\n"
-                    + "   |\n"
-                    + "   |\n"
-                    + "   |\n"
-                    + "   |\n"
-                    + "___|___");
+            case 7 -> System.out.println("""
+                       _______
+                       |/     |
+                       |     (_)
+                       |     \\|/
+                       |      
+                       |
+                       |
+                       |
+                    ___|___""");
 
-            case 8 -> System.out.println("   _______\n"
-                    + "   |/     |\n"
-                    + "   |     (_)\n"
-                    + "   |     \\|/\n"
-                    + "   |      |\n"
-                    + "   |\n"
-                    + "   |\n"
-                    + "   |\n"
-                    + "___|___");
+            case 8 -> System.out.println("""
+                       _______
+                       |/     |
+                       |     (_)
+                       |     \\|/
+                       |      |
+                       |
+                       |
+                       |
+                    ___|___""");
 
             case 9 -> {
-                System.out.println("   _______\n"
-                        + "   |/     |\n"
-                        + "   |     (_)\n"
-                        + "   |     \\|/\n"
-                        + "   |      |\n"
-                        + "   |     / \\\n"
-                        + "   |\n"
-                        + "   |\n"
-                        + "___|___");
+                System.out.println("""
+                           _______
+                           |/     |
+                           |     (_)
+                           |     \\|/
+                           |      |
+                           |     / \\ 
+                           |
+                           |
+                        ___|___""");
+
                 System.out.println("GAME OVER!");
                 return true;
             }
